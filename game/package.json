@@ -1,0 +1,21 @@
+{
+  "name": "frost-blitz",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Cute 3D orbit-siege snowball game — slide a snowman turret around a ring, charge, and lob smiling snowballs into the frost-pig fortress.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "validate": "node scripts/validate_glb.mjs"
+  },
+  "dependencies": {
+    "cannon-es": "^0.20.0",
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-basic-ssl": "^1.1.0",
+    "vite": "^5.0.0"
+  }
+}
