@@ -12,6 +12,7 @@ import { Pig } from './gameplay/pigs.js';
 import { sfx } from './gameplay/audio.js';
 import { UI } from './gameplay/ui.js';
 import { LEVELS } from './content/levels.js';
+import { textureMesh, loadTexture } from './core/textures.js';
 
 const STATE = {
   MENU: 'MENU',
@@ -115,10 +116,12 @@ class Game {
     ring.scale.set(level.R, 1, level.R);
     ring.position.y = 0.05;
     this.scene.add(ring);
+    await textureMesh(ring, 't_ice', { repeat: [3, 1], color: 0xbfe0ff });
     const ground = await loadAsset('prop_ground');
     ground.scale.set(level.R * 0.55, 1, level.R * 0.55);
     ground.position.y = -0.02;
     this.scene.add(ground);
+    await textureMesh(ground, 't_snow_ground', { repeat: [4, 4], color: 0xffffff });
 
     // Fortress blocks
     this.blocks = [];
@@ -128,6 +131,10 @@ class Game {
       const block = new Block({ material: b.material, mesh, position: pos, world: this.world, materials: this.materials });
       this.blocks.push(block);
       this.scene.add(mesh);
+      // Texture by material type
+      const texName = b.material === 'snow' ? 't_snow_ground' : b.material === 'ice' ? 't_ice' : 't_wood';
+      const tint = b.material === 'snow' ? 0xffffff : b.material === 'ice' ? 0xbfe0ff : 0xd8b088;
+      await textureMesh(mesh, texName, { repeat: [1, 1], color: tint });
     }
 
     // Pigs
