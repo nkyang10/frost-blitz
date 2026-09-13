@@ -18,6 +18,11 @@ export const LEVELS = [
       { material: 'snow', x: 0.8, z: 0.8, y: 0 },
       { material: 'snow', x: 0, z: 0.8, y: 1 },
     ],
+    decor: [
+      { kind: 'prop_pine', x: -2.4, z: 1.8, s: 0.8 },
+      { kind: 'prop_pine', x: 2.4, z: 1.8, s: 0.8 },
+      { kind: 'prop_igloo', x: -3.2, z: -0.6, s: 0.9 },
+    ],
   },
   {
     id: 2,
@@ -34,6 +39,10 @@ export const LEVELS = [
       { material: 'snow', x: 1.0, z: 0.4, y: 0 },
       { material: 'ice', x: 0, z: 0.4, y: 0 },
     ],
+    decor: [
+      { kind: 'prop_pine', x: -1.8, z: -2.2, s: 0.9 },
+      { kind: 'prop_pine', x: 1.8, z: -2.2, s: 0.9 },
+    ],
   },
   {
     id: 3,
@@ -49,6 +58,10 @@ export const LEVELS = [
       { material: 'snow', x: -0.8, z: 0.3, y: 0 },
       { material: 'snow', x: 0.8, z: 0.3, y: 0 },
       { material: 'wood', x: 0, z: 0.3, y: 1 }, // roof
+    ],
+    decor: [
+      { kind: 'prop_pine', x: -2.2, z: 1.9, s: 0.8 },
+      { kind: 'prop_pine', x: 2.2, z: 1.9, s: 0.8 },
     ],
   },
   {
@@ -68,6 +81,10 @@ export const LEVELS = [
       { material: 'snow', x: 1.2, z: 0.3, y: 0 },
       { material: 'wood', x: 0, z: 0.3, y: 1 },
     ],
+    decor: [
+      { kind: 'prop_igloo', x: -3.0, z: 1.5, s: 0.9 },
+      { kind: 'prop_pine', x: 3.0, z: 1.5, s: 0.9 },
+    ],
   },
   {
     id: 5,
@@ -85,6 +102,11 @@ export const LEVELS = [
       { material: 'ice', x: 0.8, z: 0.2, y: 0 },
       { material: 'wood', x: 0, z: 0.2, y: 0 },
       { material: 'wood', x: 0, z: 0.2, y: 1 },
+    ],
+    decor: [
+      { kind: 'prop_pine', x: -2.8, z: 1.8, s: 1.0 },
+      { kind: 'prop_pine', x: 2.8, z: 1.8, s: 1.0 },
+      { kind: 'prop_igloo', x: 1.8, z: -2.4, s: 0.9 },
     ],
   },
   {
@@ -104,6 +126,10 @@ export const LEVELS = [
       { material: 'wood', x: 1.2, z: 0.2, y: 0 },
       { material: 'ice', x: 0, z: 0.2, y: 0 },
       { material: 'snow', x: 0, z: 0.2, y: 1 },
+    ],
+    decor: [
+      { kind: 'prop_pine', x: -2.4, z: -2.2, s: 1.0 },
+      { kind: 'prop_igloo', x: 2.4, z: -2.2, s: 1.0 },
     ],
   },
 ];

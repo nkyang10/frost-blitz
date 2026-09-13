@@ -143,6 +143,21 @@ class Game {
       await textureMesh(mesh, texName, { repeat: [1, 1], color: tint });
     }
 
+    // Decorative props (visual only, no collision — outside the play area)
+    this.decor = [];
+    if (level.decor) {
+      for (const d of level.decor) {
+        const prop = await loadAsset(d.kind);
+        const s = d.s || 1;
+        prop.scale.set(s, s, s);
+        prop.position.set(d.x, 0, d.z);
+        prop.traverse((o) => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; } });
+        prop.userData.isLevelEntity = true;
+        this.scene.add(prop);
+        this.decor.push(prop);
+      }
+    }
+
     // Pigs
     this.pigs = [];
     for (const p of level.pigs) {
