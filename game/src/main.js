@@ -3,6 +3,7 @@ import * as CANNON from 'cannon-es';
 import { createRenderer, createScene, createCamera, createLights, handleResize } from './core/renderer.js';
 import { createWorld, stepWorld } from './core/physics.js';
 import { loadAsset } from './core/loader.js';
+import { loadFrostCharacter } from './core/loadFrostCharacter.js';
 import { createSnowField, updateSnow } from './core/snow.js';
 import { Orbit, OrbitCam } from './arena/orbit.js';
 import { Input } from './arena/input.js';
@@ -104,7 +105,12 @@ class Game {
     this.launcher = new Launcher({ chargeTime: 1.2, vBase: 10, vBoost: 16, elevation: 42 });
 
     // Player snowman
-    this.player = await loadAsset('captain_snowman');
+    const playerChar = await loadFrostCharacter(THREE, {
+      glbUrl: 'assets/characters/captain_snowman/captain_snowman.glb',
+      albedoUrl: 'assets/characters/captain_snowman/captain_snowman_albedo.png',
+      targetHeight: 1.6,
+    });
+    this.player = playerChar.root;
     this.player.scale.set(0.9, 0.9, 0.9);
     this.scene.add(this.player);
     this.playerGroup = new THREE.Group();
@@ -140,7 +146,12 @@ class Game {
     // Pigs
     this.pigs = [];
     for (const p of level.pigs) {
-      const mesh = await loadAsset(`pig_${p.variant}`);
+      const char = await loadFrostCharacter(THREE, {
+        glbUrl: `assets/characters/pig_${p.variant}/pig_${p.variant}.glb`,
+        albedoUrl: `assets/characters/pig_${p.variant}/pig_${p.variant}_albedo.png`,
+        targetHeight: 1.0,
+      });
+      const mesh = char.root;
       const pos = [p.x, 0.5, p.z];
       // Robust spawn: avoid spawning inside blocks (push outward along z if overlapping)
       const pigHalf = 0.45;
@@ -278,14 +289,19 @@ class Game {
     this.ammoLeft--;
     this.ui.setAmmo(this.ammoLeft);
 
-    loadAsset('snowball_brave').then((mesh) => {
+    loadFrostCharacter(THREE, {
+      glbUrl: 'assets/characters/snowball_brave/snowball_brave.glb',
+      albedoUrl: 'assets/characters/snowball_brave/snowball_brave_albedo.png',
+      targetHeight: 0.75,
+    }).then(({ root }) => {
       // Spawn at player position, slightly forward/up
       const pos = this.orbit.position();
       pos.y += 1.2;
-      mesh.position.copy(pos);
-      mesh.castShadow = true;
-      mesh.userData.isLevelEntity = true;
-      this.scene.add(mesh);
+      root.position.copy(pos);
+      root.traverse((o) => { if (o.isMesh) { o.castShadow = true; } });
+      root.userData.isLevelEntity = true;
+      this.scene.add(root);
+      const mesh = root;
 
       const body = new CANNON.Body({
         mass: 0.8,

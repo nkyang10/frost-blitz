@@ -1,0 +1,56 @@
+{
+  "skill": "comfyui-character-3d",
+  "name": "snowball_derpy",
+  "comfyui_url": "http://192.168.1.162:8188",
+  "prompt_id": "c9fc0cf6-958c-4c7b-8c2c-7dbeebb5cdaf",
+  "seed": null,
+  "assets": {
+    "glb": "snowball_derpy.glb",
+    "albedo": "snowball_derpy_albedo.png",
+    "tpose_white": "snowball_derpy_tpose_white.png",
+    "tpose_raw": "snowball_derpy_tpose_raw.png"
+  },
+  "limits": {
+    "has_skeleton": false,
+    "has_embedded_textures": false,
+    "has_animations": false,
+    "geometry_only_glb": true,
+    "color_via": "front_projected_albedo"
+  },
+  "three": {
+    "loader": "loadCharacter.js",
+    "preview": "preview.html",
+    "import_example": "import * as THREE from \"three\";\nimport { loadCharacter } from \"./loadCharacter.js\";\nconst { root } = await loadCharacter(THREE, {\n  glbUrl: \"./snowball_derpy.glb\",\n  albedoUrl: \"./snowball_derpy_albedo.png\",\n});\nscene.add(root);",
+    "notes": [
+      "GLB from Hunyuan is geometry-only \u2014 no UVs or PBR materials.",
+      "Use loadCharacter.js (copied next to assets) for front-projected color.",
+      "Back faces use a tint; multi-view generation needed for correct back geometry.",
+      "No skeleton or clips in this package \u2014 do not invent bones in Three.js."
+    ],
+    "animation": {
+      "chain": {
+        "before": "Remind user/caller before queue: static mesh only; Mixamo/Blender later if animating.",
+        "this_skill": "Flux2 \u2192 white \u2192 Hunyuan GLB \u2192 Three.js package",
+        "after": "Remind again with Mixamo/Blender/AnimationMixer steps and real asset paths."
+      },
+      "required_tools": [
+        "Mixamo",
+        "Blender"
+      ],
+      "guidance": "For idle/walk/run: upload the GLB (or FBX via Blender) to Mixamo for auto-rig and clips, then bring FBX back through Blender to animated GLB; or rig fully in Blender (Rigify). Then use THREE.AnimationMixer on the rigged GLB.",
+      "mixamo": "https://www.mixamo.com",
+      "steps": [
+        "Upload <slug>.glb (or FBX) to Mixamo \u2192 Auto-Rig",
+        "Download Idle / Walking (FBX)",
+        "Blender: FBX \u2192 GLB with skins + actions",
+        "Three.js: GLTFLoader + AnimationMixer"
+      ]
+    }
+  },
+  "bytes": {
+    "tpose_raw": 1193441,
+    "tpose_white": 457285,
+    "glb": 9894920,
+    "albedo": 416829
+  }
+}
