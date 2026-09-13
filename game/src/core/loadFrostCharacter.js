@@ -64,6 +64,9 @@ export async function loadFrostCharacter(THREE, opts) {
   const texLoader = new THREE.TextureLoader();
   const albedo = await new Promise((resolve, reject) => texLoader.load(albedoUrl, resolve, undefined, reject));
   albedo.colorSpace = THREE.SRGBColorSpace;
+  // Our projectFrontUVs writes OpenGL-style UVs (v=0 at bottom, v=1 at top);
+  // disable three's default flipY so texture rows map 1:1 (head stays up).
+  albedo.flipY = false;
   gltf.scene.traverse((child) => {
     if (child.isMesh) {
       projectFrontUVs(THREE, child.geometry);
