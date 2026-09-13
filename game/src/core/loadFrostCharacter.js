@@ -18,7 +18,7 @@ function projectFrontUVs(THREE, geometry) {
   const sy = Math.max(bb.max.y - bb.min.y, 1e-6);
   for (let i = 0; i < pos.count; i++) {
     uvs[i * 2] = (pos.getX(i) - bb.min.x) / sx;
-    uvs[i * 2 + 1] = 1.0 - (pos.getY(i) - bb.min.y) / sy;
+    uvs[i * 2 + 1] = (pos.getY(i) - bb.min.y) / sy;
   }
   geometry.setAttribute('uv', new THREE.BufferAttribute(uvs, 2));
 }
